@@ -108,7 +108,7 @@ app.post('/login',function (req,res,next) {
                     message:'Server error!'
                 });
             }
-            console.log(users._id);
+            //console.log(users._id);
 
             return res.send({
                 success: true,
@@ -152,7 +152,7 @@ app.get('/getUserDetails',function (req,res,next) {
 })
 
 app.post('/register',function (req,res,next) {
-    console.log(req.body)
+    //console.log(req.body)
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
     var email = req.body.email;
@@ -230,7 +230,7 @@ app.post('/checkAvalable',function (req,res,next) {
 app.get('/getResDetails',function (req,res,next) {
     const date= req.query['date'];
     const lab = req.query['lab'];
-    console.log(date+"22"+lab)
+    //console.log(date+"22"+lab)
     if(lab != "ALL"){
         const myobj ={id: lab};
         MongoClient.connect(url, function(err, db) {
