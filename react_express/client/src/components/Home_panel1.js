@@ -44,7 +44,7 @@ class Home_panel1 extends Component{
                 console.log(response.data)
                 this.state.products.push(response.data)
                 this.setState({date:date})
-                //console.log(this.state.products)
+                //console.log(this.state.prod
             });
     }
 

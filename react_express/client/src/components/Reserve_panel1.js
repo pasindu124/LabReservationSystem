@@ -3,6 +3,9 @@ import '../assert/style.css';
 import Datepicker from './Datepicker';
 import axios from 'axios';
 import Message from "./Message";
+import {getFromStorage} from "../utils/storage";
+import Reserve_panel2 from "./Reserve_panel2";
+import { Redirect } from 'react-router-dom'
 
 class Reserve_panel1 extends Component{
     constructor(props) {
@@ -12,8 +15,8 @@ class Reserve_panel1 extends Component{
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkClick = this.checkClick.bind(this);
-
     }
+
     checkClick(event){
         this.setState({flag: true});
 
@@ -39,6 +42,8 @@ class Reserve_panel1 extends Component{
 
 
 
+
+
     }
 
 
@@ -47,12 +52,13 @@ class Reserve_panel1 extends Component{
         var date = "<"+document.getElementById('datepick').value+">";
         var time = document.getElementById('labtime').value;
         var name = document.getElementById('labname').value;
-
+        var user = getFromStorage('the_main_app')['user'];
 
         const data = {
             date: date,
             time: time,
-            name: name
+            name: name,
+            user: user
 
         }
         axios.post('http://localhost:5000/insertdata' ,{data})
@@ -60,7 +66,7 @@ class Reserve_panel1 extends Component{
                 console.log(res);
                 console.log(res.data);
             })
-        this.setState({message1: "Success..",message2: "You have successfully reserve this time slot!",clsname: "alert alert-info text-center",visibi:"row"})
+        this.setState({message1: "Success..",message2: "You have successfully reserve this time slot!",clsname: "alert alert-info text-center",visibi:"row invisible"})
 
     }
 
@@ -132,21 +138,21 @@ class Reserve_panel1 extends Component{
                                             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">RESERVE</button>
 
 
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Confirm Your Reservation..</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div className="modal-dialog" role="document">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <h5 className="modal-title" id="exampleModalLabel">Confirm Your Reservation..</h5>
+                                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div className="modal-body">
                                                             ...
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button onClick={this.handleSubmit} data-dismiss="modal" type="button" class="btn btn-primary">Save changes</button>
+                                                        <div className="modal-footer">
+                                                            <button  type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button onClick={this.handleSubmit} data-dismiss="modal" type="button" className="btn btn-primary">Save changes</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,6 +166,7 @@ class Reserve_panel1 extends Component{
                         </div>
                     </div>
                 </div>
+
             </div>
         );
 

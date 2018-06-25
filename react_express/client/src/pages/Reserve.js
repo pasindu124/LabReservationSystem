@@ -15,7 +15,6 @@ class Reserve extends Component {
                 <Jumbo title="Reserve Labs" subtitle="Find and reserver.."/>
 
                 <div className="container">
-                    <Reserve_panel1/>
                     <Reserve_panel2/>
                 </div>
                 <Footer/>

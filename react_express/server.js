@@ -90,7 +90,7 @@ app.post('/login',function (req,res,next) {
         if(!users){
             return res.send({
                 success: false,
-                message:'Invalid!'
+                message:'Invalid Login Details!'
             });
 
         }
@@ -108,16 +108,48 @@ app.post('/login',function (req,res,next) {
                     message:'Server error!'
                 });
             }
+            console.log(users._id);
+
             return res.send({
                 success: true,
-                message:'Valid signin!',
-                token: doc._id
+                message:'Valid Sign! Please Refresh The Page',
+                token: doc._id,
+                user:users._id,
+                role:users.role
             });
         })
 
 
     })
 });
+
+app.get('/getUserDetails',function (req,res,next) {
+    const token = req.query['token'];
+
+    User.find({
+        _id: ObjectId(token),
+
+    },(err,result)=>{
+        if(err){
+            return res.send({
+                success: false,
+                message:'Error : server error'
+            });
+        }
+        if(!result){
+            return res.send({
+                success: false,
+                message:'Error : Invalid token'
+            });
+        }
+        return res.send({
+            success: true,
+            message:'Success login!',
+            result:result
+        });
+    })
+
+})
 
 app.post('/register',function (req,res,next) {
     console.log(req.body)
@@ -155,7 +187,7 @@ app.post('/register',function (req,res,next) {
             }
             return res.send({
                 success: true,
-                message:'Registered'
+                message:'User Registered Successfully'
             });
     })
 
@@ -172,7 +204,7 @@ app.post('/insertdata',function (req,res,next) {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("labreserve");
-        var myobj = { date: new Date(req.body.data.date), time: req.body.data.time,name: req.body.data.name};
+        var myobj = { date: new Date(req.body.data.date), time: req.body.data.time,name: req.body.data.name,user:ObjectId(req.body.data.user)};
         dbo.collection("reservation").insertOne(myobj, function(err, res) {
             if (err) throw err;
             //console.log("1 document inserted");
@@ -302,6 +334,133 @@ app.get('/getResDetails',function (req,res,next) {
     }
 });
 
+app.post('/makeadmin',function (req,res,next) {
+    var email = req.body.user;
+    //console.log(email)
+    User.find({
+        email:email
+    },(err,user) => {
+        if (err) {
+            return res.send({
+                success: false,
+                message: 'Error : server error'
+            });
+
+        } else if(user.length==0){
+            return res.send({
+                success: false,
+                message: 'User Account Not Exist!'
+            });
+        }
+        else if (user.length > 0) {
+
+            User.findOneAndUpdate({
+                email: email
+
+            },{
+                $set: {role:"admin"}
+            },null,(err,session)=>{
+                if(err){
+                    return res.send({
+                        success: false,
+                        message:'Error : server error'
+                    });
+                }
+
+                return res.send({
+                    success: true,
+                    message: 'Succesfully Make An Admin!'
+                });
+            })
+
+        }
+    });
+
+})
+
+app.get('/getLatestReservations',function (req,res,next) {
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("labreserve");
+        dbo.collection("reservation").find({}).toArray(function(err, result) {
+            if (err) throw err;
+            //console.log(result);
+            db.close();
+            return res.send({
+                success: true,
+                message: 'Succesfully Fetch!',
+                result:result
+            });
+
+        });
+    });
+});
+
+app.get('/getLatestReservationsAdmin',function (req,res,next) {
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("labreserve");
+        dbo.collection('reservation').aggregate([
+            { $lookup:
+                    {
+                        from: 'users',
+                        localField: 'user',
+                        foreignField: '_id',
+                        as: 'userdetails'
+                    }
+            }
+        ]).toArray(function(err, result) {
+            if (err) throw err;
+            var data = JSON.stringify(result);
+            db.close();
+            return res.send({
+                success: true,
+                message: 'Succesfully Fetch!',
+                result:result
+            });
+        });
+    });
+});
+
+app.post('/getLatestReservationsAdminFromTo',function (req,res,next) {
+    const datefrom = req.body.datefrom;
+    const dateto = req.body.dateto;
+    const labname = req.body.labname;
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("labreserve");
+        dbo.collection('reservation').aggregate([
+            {
+             $match:
+                 {
+                     'date':{
+                         $gte: new Date(datefrom),
+                         $lt: new Date(dateto)
+                     }
+
+                 }
+            },
+            { $lookup:
+                {
+                    from: 'users',
+                    localField: 'user',
+                    foreignField: '_id',
+                    as: 'userdetails'
+                }
+            }
+        ]).toArray(function(err, result) {
+            if (err) throw err;
+            var data = JSON.stringify(result);
+            db.close();
+            return res.send({
+                success: true,
+                message: 'Succesfully Fetch!',
+                result:result
+            });
+        });
+    });
+});
 
 const port = 5000;
 

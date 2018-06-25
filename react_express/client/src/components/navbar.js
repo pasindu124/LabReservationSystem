@@ -1,14 +1,35 @@
 import React, { Component } from 'react';
-import App from '../App'
+import axios from 'axios';
+
+import {
+    getFromStorage,
+    setInStorage
+} from "../utils/storage";
 class Navbar extends Component{
     constructor(props){
         super(props)
-
+        this.state = {
+            user: ''
+        };
         this.onLogout = this.onLogout.bind(this)
         // noinspection JSAnnotator
 
     }
+    componentDidMount(){
 
+        var user = getFromStorage('the_main_app')['user'];
+        //console.log(user)
+        axios.get(`http://localhost:5000/getUserDetails?token=`+user)
+            .then(res => {
+                const user = res.data.result;
+                this.setState({
+                    user: user[0]
+                })
+                console.log(this.state.user.firstname)
+
+
+            })
+    }
     onLogout(){
         this.props.func();
 
@@ -34,8 +55,9 @@ class Navbar extends Component{
                                 <a onClick={this.onLogout} className="nav-link" href="/">Logout</a>
                             </li>
 
+
                         </ul>
-                        <span className="navbar-text">Online Lab Reservation</span>
+                        <span className="navbar-text"><b>Welcome! </b>{this.state.user.firstname} {this.state.user.lastname}</span>
                     </div>
                 </nav>
             </div>

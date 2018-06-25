@@ -9,6 +9,7 @@ import {
     getFromStorage,
     setInStorage
 } from "./utils/storage";
+import Admin from "./pages/Admin";
 
 
 
@@ -29,7 +30,9 @@ class App extends Component {
             signUpEmail: '',
             signUpPassword: '',
             signUpFname: '',
-            signUpLname: ''
+            signUpLname: '',
+
+            role: ''
 
         }
         this.onChangeSignInEmail = this.onChangeSignInEmail.bind(this);
@@ -48,13 +51,14 @@ class App extends Component {
         const obj = getFromStorage('the_main_app');
 
         if(obj && obj.token){
-            const {token} = obj;
+            const {token,role} = obj;
             fetch('/checkLogin?token='+token)
                 .then(res => res.json())
                 .then(json => {
                     if(json.success){
                         this.setState({
                             token: token,
+                            role: role,
                             isLoading: false
                         })
                     }else {
@@ -170,13 +174,14 @@ class App extends Component {
             .then(res => res.json())
             .then(json => {
                 if(json.success){
-                    setInStorage('the_main_app',{token: json.token});
+                    setInStorage('the_main_app',{token: json.token,user:json.user,role:json.role});
                     this.setState({
                         signInError: json.message,
                         isLoading: false,
                         signInEmail: '',
                         signInPassword:''
                     });
+                    this.componentDidMount();
 
                 }else {
                     this.setState({
@@ -202,8 +207,10 @@ class App extends Component {
                     if(json.success){
                         this.setState({
                             token: '',
+                            role: '',
                             isLoading: false
                         })
+
                     }else {
                         this.setState({
                             isLoading: false
@@ -237,34 +244,44 @@ class App extends Component {
         if(!token){
             return (
                 <div className="container">
+                    <div className="col-md-12 text-center">
+                        <div className="row">
+                            <div id="addQuestion">
+                                <div className="col-md-4">
+                                    {
+                                        (signInError) ? (
+                                            <div className="alert alert-danger" role="alert">
+                                                {signInError}
+                                            </div>
+                                        ) : null
+                                    }
 
-                    <div className="col-md-4">
-                        {
-                            (signInError) ? (
-                                <p>{signInError}</p>
-                            ) : null
-                        }
+                                    <h2>Sign In</h2>
 
-                        <h2>Sign In</h2>
+                                    <form>
+                                        <div className="form-group">
+                                            <label htmlFor="exampleInputEmail1">Email address</label>
+                                            <input type="email" className="form-control" id="signemail"
+                                                   aria-describedby="emailHelp" placeholder="Enter email" value={signInEmail}
+                                                   onChange={this.onChangeSignInEmail} />
 
-                        <form action="/">
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input type="email" className="form-control" id="signemail"
-                                       aria-describedby="emailHelp" placeholder="Enter email" value={signInEmail}
-                                       onChange={this.onChangeSignInEmail} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="exampleInputPassword1">Password</label>
+                                            <input type="password" className="form-control" id="signpassword"
+                                                   placeholder="Password" value={signInPassword} onChange={this.onChangeSignInPassword}/>
+                                        </div>
 
+                                        <a onClick={this.onSignIn} className="btn btn-primary">Submit</a>
+                                    </form>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputPassword1">Password</label>
-                                <input type="password" className="form-control" id="signpassword"
-                                       placeholder="Password" value={signInPassword} onChange={this.onChangeSignInPassword}/>
-                            </div>
+                        </div>
 
-                            <a href="#/" onClick={this.onSignIn} className="btn btn-primary">Submit</a>
-                        </form>
+
                     </div>
-                    <div>
+
+                    {<div className="col-md-12">
                         {
                             (signUpError) ? (
                                 <p>{signUpError}</p>
@@ -301,7 +318,7 @@ class App extends Component {
 
                             <button onClick={this.onSignUp} type="button" className="btn btn-primary">Submit</button>
                         </form>
-                    </div>
+                    </div> && true}
                 </div>
             );
         }
@@ -317,6 +334,14 @@ class App extends Component {
 
                     <Route path="/reserve" component={Reserve}/>
                     <Route path="/login" component={Login} />
+
+                    {
+                        (this.state.role=='admin') ? (
+                            <Route path="/admin" component={Admin} />
+                        ) : null
+
+                    }
+
 
                 </div>
             </Router>
