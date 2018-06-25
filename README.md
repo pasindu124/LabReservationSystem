@@ -1,5 +1,4 @@
-# volunteerism_project
-
+# Lab reservation system 
 Resource requirements & description
 
         Front end
