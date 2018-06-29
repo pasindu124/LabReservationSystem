@@ -5,7 +5,7 @@ Resource requirements & description
           ● ReactJS
           
         Back end
-          ● Node JS
+          ● Node JS express
           
         Database
           ● MongoDB
