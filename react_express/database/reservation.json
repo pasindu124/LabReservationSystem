@@ -1,0 +1,10 @@
+{"_id":{"$oid":"5b30917290a2e5499c47cb58"},"date":{"$date":{"$numberLong":"1530210600000"}},"time":"08.00-09.00","name":"Lab C","user":{"$oid":"5b2fee43a8492316308a1946"}}
+{"_id":{"$oid":"5b3097aad7374e2218e33ba2"},"date":{"$date":{"$numberLong":"1529865000000"}},"time":"08.00-09.00","name":"Lab D","user":{"$oid":"5b2fee43a8492316308a1946"}}
+{"_id":{"$oid":"5b309af51bafc8218c15d6fe"},"date":{"$date":{"$numberLong":"1529865000000"}},"time":"14.00-15.00","name":"Lab D","user":{"$oid":"5b2fee43a8492316308a1946"}}
+{"_id":{"$oid":"5b309b219e5ae8192ca983e0"},"date":{"$date":{"$numberLong":"1529865000000"}},"time":"14.00-15.00","name":"Lab D","user":{"$oid":"5b2fee43a8492316308a1946"}}
+{"_id":{"$oid":"5b30a2175cb0c4062cfb2bb6"},"date":{"$date":{"$numberLong":"1529865000000"}},"time":"08.00-09.00","name":"Lab B","user":{"$oid":"5b2fe0c97404b03bccdaa2b7"}}
+{"_id":{"$oid":"5b30a21f5cb0c4062cfb2bb7"},"date":{"$date":{"$numberLong":"1529865000000"}},"time":"08.00-09.00","name":"Lab C","user":{"$oid":"5b2fe0c97404b03bccdaa2b7"}}
+{"_id":{"$oid":"5b30a2665cb0c4062cfb2bba"},"date":{"$date":{"$numberLong":"1529865000000"}},"time":"11.00-12.00","name":"Lab D","user":{"$oid":"5b30a23c5cb0c4062cfb2bb8"}}
+{"_id":{"$oid":"5b31c5124733b604acb27c85"},"date":{"$date":{"$numberLong":"1529951400000"}},"time":"15.00-16.00","name":"Lab B","user":{"$oid":"5b2fe0c97404b03bccdaa2b7"}}
+{"_id":{"$oid":"5b34b8952b9a4e1658b391cd"},"date":{"$date":{"$numberLong":"1530124200000"}},"time":"08.00-09.00","name":"Lab A","user":{"$oid":"5b2fe0c97404b03bccdaa2b7"}}
+{"_id":{"$oid":"5b34b8a82b9a4e1658b391ce"},"date":{"$date":{"$numberLong":"1530124200000"}},"time":"11.00-12.00","name":"Lab A","user":{"$oid":"5b2fe0c97404b03bccdaa2b7"}}

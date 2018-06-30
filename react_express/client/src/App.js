@@ -243,11 +243,14 @@ class App extends Component {
 
         if(!token){
             return (
-                <div className="container">
+                <div className="container-fulid overlay" id="loginbody">
                     <div className="col-md-12 text-center">
+                        <div className="row center-div">
+                            <img src="http://2.bp.blogspot.com/-n31qNm8G8JY/TcTC4GfvQuI/AAAAAAAAAHY/ODaq0QyuiqM/s400/Home.png" alt=""/>
+                        </div>
                         <div className="row">
                             <div id="addQuestion">
-                                <div className="col-md-4">
+                                <div className="col-md-5">
                                     {
                                         (signInError) ? (
                                             <div className="alert alert-danger" role="alert">
@@ -256,23 +259,22 @@ class App extends Component {
                                         ) : null
                                     }
 
-                                    <h2>Sign In</h2>
-
+                                    <h2>UCSC Lab Reservation System</h2>
+                                    <br/>
                                     <form>
                                         <div className="form-group">
-                                            <label htmlFor="exampleInputEmail1">Email address</label>
                                             <input type="email" className="form-control" id="signemail"
                                                    aria-describedby="emailHelp" placeholder="Enter email" value={signInEmail}
                                                    onChange={this.onChangeSignInEmail} />
 
                                         </div>
+                                        <br/>
                                         <div className="form-group">
-                                            <label htmlFor="exampleInputPassword1">Password</label>
                                             <input type="password" className="form-control" id="signpassword"
                                                    placeholder="Password" value={signInPassword} onChange={this.onChangeSignInPassword}/>
                                         </div>
 
-                                        <a onClick={this.onSignIn} className="btn btn-primary">Submit</a>
+                                        <a onClick={this.onSignIn} className="btn btn-primary">Log In</a>
                                     </form>
                                 </div>
                             </div>

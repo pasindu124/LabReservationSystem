@@ -152,7 +152,7 @@ class Reserve_panel1 extends Component{
                                                         </div>
                                                         <div className="modal-footer">
                                                             <button  type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button onClick={this.handleSubmit} data-dismiss="modal" type="button" className="btn btn-primary">Save changes</button>
+                                                            <button onClick={this.handleSubmit} data-dismiss="modal" type="button" className="btn btn-primary">Confirm</button>
                                                         </div>
                                                     </div>
                                                 </div>

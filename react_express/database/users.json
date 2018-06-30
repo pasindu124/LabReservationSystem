@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5b2fe0c97404b03bccdaa2b7"},"role":"admin","firstname":"Pasindu","lastname":"Weerasinghe","email":"pasindu@gmail.com","password":"pasindu123","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5b2fee43a8492316308a1946"},"role":"admin","firstname":"Eranga","lastname":"Jayasekara","email":"eranga@gmail.com","password":"eranga123","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5b30a23c5cb0c4062cfb2bb8"},"role":"user","firstname":"Pasindu","lastname":"Navod","email":"navod@gmail.com","password":"pasindu123","__v":{"$numberInt":"0"}}

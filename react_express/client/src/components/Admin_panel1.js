@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../assert/style.css';
-import Datepicker from './Datepicker';
 import axios from 'axios';
 
 import ReactTable from "react-table";
@@ -38,7 +37,7 @@ class Admin_panel1 extends Component{
 
     }
     onChangeSignUpFname(event){
-        this.setState({
+         this.setState({
             signUpFname: event.target.value
         })
     }
