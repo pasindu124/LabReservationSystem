@@ -1,11 +1,11 @@
-# Lab reservation system 
+# Lab reservation system (MERN application)
 Resource requirements & description
 
         Front end
           ● ReactJS
           
         Back end
-          ● Node JS
+          ● Node JS express
           
         Database
           ● MongoDB
