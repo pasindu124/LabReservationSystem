@@ -7,14 +7,13 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = require('./models/User');
 var UserSession = require('./models/UserSession');
-var session =require('express-session')
-
+var session =require('express-session');
+var validator = require('validator');
 var db = mongoose.connect('mongodb://localhost:27017/labreserve',function (err,respond) {
     if(err) console.log("there is error in connecting with mongodb");
     console.log('connect to the database')
 })
 const app = express();
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -78,6 +77,18 @@ app.post('/login',function (req,res,next) {
     var email = req.body.email;
     var password = req.body.password;
 
+    if (!validator.isEmail(email)) {
+        return res.send({
+            success: false,
+            message:'Email is invalid'
+        });
+    }
+    if(password==""){
+        return res.send({
+            success: false,
+            message:'Password cannot be empty'
+        });
+    }
     User.findOne({email:email,password:password},function (err,users) {
         if (err){
             console.log(err);
@@ -157,6 +168,34 @@ app.post('/register',function (req,res,next) {
     var lastname = req.body.lastname;
     var email = req.body.email;
     var password = req.body.password;
+
+    if (firstname==""){
+        return res.send({
+            success: false,
+            message:'Firstname cannot be empty'
+        });
+    }
+    if (lastname==""){
+        return res.send({
+            success: false,
+            message:'Lastname cannot be empty'
+        });
+    }
+
+    if (!validator.isEmail(email)) {
+        return res.send({
+            success: false,
+            message:'Email is invalid!'
+        });
+    }
+
+    if (password==""){
+        return res.send({
+            success: false,
+            message:'Password cannot be empty'
+        });
+    }
+    
     User.find({
         email:email
     },(err,previousUser) => {

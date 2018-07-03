@@ -283,44 +283,7 @@ class App extends Component {
 
                     </div>
 
-                    {<div className="col-md-12">
-                        {
-                            (signUpError) ? (
-                                <p>{signUpError}</p>
-                            ) : null
-                        }
-                        <h2>Sign Up</h2>
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">First name</label>
-                                <input type="text" className="form-control" id="fname"
-                                       aria-describedby="emailHelp" placeholder="Enter First Name" value={signUpFname}
-                                       onChange={this.onChangeSignUpFname} />
 
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Last name</label>
-                                <input type="text" className="form-control" id="lname"
-                                       aria-describedby="emailHelp" placeholder="Enter Last Name" value={signUpLname}
-                                       onChange={this.onChangeSignUpLname} />
-
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input type="email" className="form-control" id="email"
-                                       aria-describedby="emailHelp" placeholder="Enter email" value={signUpEmail}
-                                       onChange={this.onChangeSignUpEmail} />
-
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputPassword1">Password</label>
-                                <input type="password" className="form-control" id="password"
-                                       placeholder="Password" value={signUpPassword} onChange={this.onChangeSignUpPassword}/>
-                            </div>
-
-                            <button onClick={this.onSignUp} type="button" className="btn btn-primary">Submit</button>
-                        </form>
-                    </div> && true}
                 </div>
             );
         }
@@ -335,7 +298,6 @@ class App extends Component {
                     />
 
                     <Route path="/reserve" component={Reserve}/>
-                    <Route path="/login" component={Login} />
 
                     {
                         (this.state.role=='admin') ? (

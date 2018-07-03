@@ -20,6 +20,7 @@ class Admin_panel1 extends Component{
             signUpFname: '',
             signUpLname: '',
             signUpError: '',
+            signUpSuccess: '',
             makeAdminMessage: '',
 
             messageAdmin:'',
@@ -82,16 +83,18 @@ class Admin_panel1 extends Component{
             .then(json => {
                 if(json.success){
                     this.setState({
-                        signUpError: json.message,
+                        signUpSuccess: json.message,
                         signUpEmail: '',
                         signUpPassword:'',
                         signUpFname: '',
-                        signUpLname: ''
+                        signUpLname: '',
+                        signUpError: ''
                     });
 
                 }else {
                     this.setState({
                         signUpError: json.message,
+                        signUpSuccess: ''
 
                     });
                 }
@@ -178,6 +181,7 @@ class Admin_panel1 extends Component{
     render(){
         const {
             signUpError,
+            signUpSuccess,
             signUpEmail,
             signUpPassword,
             signUpFname,
@@ -292,8 +296,15 @@ class Admin_panel1 extends Component{
                             <br/>
                             {
                                 (signUpError) ? (
-                                    <div className="alert alert-success" role="alert">
+                                    <div className="alert alert-danger" role="alert">
                                         {signUpError}
+                                    </div>
+                                ) : null
+                            }
+                            {
+                                (signUpSuccess) ? (
+                                    <div className="alert alert-success" role="alert">
+                                        {signUpSuccess}
                                     </div>
                                 ) : null
                             }
