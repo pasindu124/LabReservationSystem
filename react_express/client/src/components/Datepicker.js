@@ -30,8 +30,8 @@ class Datepicker extends React.Component {
             dateFormat="YYYY-MM-DD"
             selected={this.state.startDate}
             onChange={this.handleChange}
-
-            maxDate={moment().add(14, "days")}
+            minDate={moment()}
+            // maxDate={moment().add(14, "days")}
             placeholderText="Select a date"
             className="form-control"
             name="labdate"

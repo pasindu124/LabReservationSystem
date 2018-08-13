@@ -163,7 +163,7 @@ app.get('/getUserDetails',function (req,res,next) {
 })
 
 app.post('/register',function (req,res,next) {
-    //console.log(req.body)
+
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
     var email = req.body.email;
